@@ -1,41 +1,34 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC4 - Train Consist Using LinkedList ");
+        System.out.println(" UC5 - Preserve Insertion Order ");
         System.out.println("======================================\n");
 
-        // Create LinkedList for train consist
-        LinkedList<String> train = new LinkedList<>();
+        // LinkedHashSet preserves insertion order + uniqueness
+        Set<String> bogies = new LinkedHashSet<>();
 
-        // Add bogies
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("AC");
-        train.add("Cargo");
-        train.add("Guard");
+        // Add bogies (with duplicates)
+        bogies.add("BG101");
+        bogies.add("BG102");
+        bogies.add("BG103");
+        bogies.add("BG104");
 
-        System.out.println("Initial Train Consist:");
-        System.out.println(train);
+        // Duplicate entries (ignored but order preserved)
+        bogies.add("BG101");
+        bogies.add("BG102");
 
-        // Insert Pantry Car at position 2
-        train.add(2, "Pantry Car");
+        // Display result
+        System.out.println("Bogie IDs in insertion order:");
+        System.out.println(bogies);
 
-        System.out.println("\nAfter adding Pantry Car at position 2:");
-        System.out.println(train);
+        System.out.println("\nNote:");
+        System.out.println("Duplicates are ignored, but insertion order is preserved.");
 
-        // Remove first and last bogie
-        train.removeFirst();
-        train.removeLast();
-
-        System.out.println("\nAfter removing first and last bogie:");
-        System.out.println(train);
-
-        // Final output
-        System.out.println("\nFinal Train Consist:");
-        System.out.println(train);
+        System.out.println("\nUC5 completed successfully...");
     }
 }
