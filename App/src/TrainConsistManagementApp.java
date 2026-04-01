@@ -5,24 +5,27 @@ public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC11 - Validate Train ID & Cargo Codes ");
+        System.out.println(" UC12 - Safety Compliance Check ");
         System.out.println("======================================\n");
 
-        String trainId = "TR123";
-        List<String> cargoCodes = Arrays.asList("CG01", "CG02", "INVALID", "CG03");
+        Map<String, String> goodsBogies = new HashMap<>();
 
-        boolean isTrainValid = trainId.matches("TR\\d{3}");
+        goodsBogies.put("BG201", "Coal");
+        goodsBogies.put("BG202", "Chemicals");
+        goodsBogies.put("BG203", "Food");
+        goodsBogies.put("BG204", "Explosives");
 
-        System.out.println("Train ID: " + trainId);
-        System.out.println("Is Train ID Valid? " + isTrainValid);
+        System.out.println("Safety Compliance Report:\n");
 
-        System.out.println("\nCargo Code Validation:");
+        for (Map.Entry<String, String> entry : goodsBogies.entrySet()) {
 
-        for (String code : cargoCodes) {
-            if (code.matches("CG\\d{2}")) {
-                System.out.println(code + " -> Valid");
+            String bogieId = entry.getKey();
+            String cargo = entry.getValue();
+
+            if (cargo.equalsIgnoreCase("Explosives") || cargo.equalsIgnoreCase("Chemicals")) {
+                System.out.println(bogieId + " carrying " + cargo + " -> NOT SAFE");
             } else {
-                System.out.println(code + " -> Invalid");
+                System.out.println(bogieId + " carrying " + cargo + " -> SAFE");
             }
         }
     }
