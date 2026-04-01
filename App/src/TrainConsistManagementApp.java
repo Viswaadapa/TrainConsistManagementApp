@@ -1,38 +1,22 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC9 - Group Bogies by Type ");
+        System.out.println(" UC10 - Total Seat Count ");
         System.out.println("======================================\n");
 
-        List<String> bogies = Arrays.asList(
-                "Engine",
-                "Sleeper",
-                "AC Chair",
-                "Cargo",
-                "First Class",
-                "Cylindrical",
-                "Guard"
-        );
+        List<Integer> capacities = Arrays.asList(72, 60, 40, 90);
 
-        Map<String, List<String>> groupedBogies = bogies.stream()
-                .collect(Collectors.groupingBy(b -> {
-                    if (b.equals("Sleeper") || b.equals("AC Chair") || b.equals("First Class")) {
-                        return "Passenger";
-                    } else if (b.equals("Cargo") || b.equals("Cylindrical")) {
-                        return "Goods";
-                    } else {
-                        return "Other";
-                    }
-                }));
+        int totalSeats = capacities.stream()
+                .reduce(0, (a, b) -> a + b);
 
-        System.out.println("Grouped Bogies:");
-        for (Map.Entry<String, List<String>> entry : groupedBogies.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+        System.out.println("Seat Capacities:");
+        System.out.println(capacities);
+
+        System.out.println("\nTotal Seats in Train:");
+        System.out.println(totalSeats);
     }
 }
