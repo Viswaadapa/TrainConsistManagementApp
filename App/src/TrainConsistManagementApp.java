@@ -1,34 +1,40 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC5 - Preserve Insertion Order ");
+        System.out.println(" UC6 - Map Bogie to Capacity ");
         System.out.println("======================================\n");
 
-        // LinkedHashSet preserves insertion order + uniqueness
-        Set<String> bogies = new LinkedHashSet<>();
+        // Create HashMap: Bogie -> Capacity
+        Map<String, Integer> bogieCapacity = new HashMap<>();
 
-        // Add bogies (with duplicates)
-        bogies.add("BG101");
-        bogies.add("BG102");
-        bogies.add("BG103");
-        bogies.add("BG104");
+        // Add entries
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 60);
+        bogieCapacity.put("First Class", 40);
 
-        // Duplicate entries (ignored but order preserved)
-        bogies.add("BG101");
-        bogies.add("BG102");
+        // Display all bogies with capacity
+        System.out.println("Bogie Capacity Mapping:");
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
 
-        // Display result
-        System.out.println("Bogie IDs in insertion order:");
-        System.out.println(bogies);
+        // Access specific bogie
+        System.out.println("\nCapacity of Sleeper: " + bogieCapacity.get("Sleeper"));
 
-        System.out.println("\nNote:");
-        System.out.println("Duplicates are ignored, but insertion order is preserved.");
+        // Check existence
+        if (bogieCapacity.containsKey("AC Chair")) {
+            System.out.println("AC Chair bogie exists in mapping.");
+        }
 
-        System.out.println("\nUC5 completed successfully...");
+        // Remove a bogie
+        bogieCapacity.remove("First Class");
+
+        System.out.println("\nAfter removing First Class:");
+        System.out.println(bogieCapacity);
     }
 }
