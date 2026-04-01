@@ -6,7 +6,7 @@ public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC8 - Filter Passenger Bogies ");
+        System.out.println(" UC9 - Group Bogies by Type ");
         System.out.println("======================================\n");
 
         List<String> bogies = Arrays.asList(
@@ -15,19 +15,24 @@ public class TrainConsistManagementApp {
                 "AC Chair",
                 "Cargo",
                 "First Class",
+                "Cylindrical",
                 "Guard"
         );
 
-        List<String> passengerBogies = bogies.stream()
-                .filter(b -> b.equals("Sleeper") ||
-                        b.equals("AC Chair") ||
-                        b.equals("First Class"))
-                .collect(Collectors.toList());
+        Map<String, List<String>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> {
+                    if (b.equals("Sleeper") || b.equals("AC Chair") || b.equals("First Class")) {
+                        return "Passenger";
+                    } else if (b.equals("Cargo") || b.equals("Cylindrical")) {
+                        return "Goods";
+                    } else {
+                        return "Other";
+                    }
+                }));
 
-        System.out.println("All Bogies:");
-        System.out.println(bogies);
-
-        System.out.println("\nPassenger Bogies:");
-        System.out.println(passengerBogies);
+        System.out.println("Grouped Bogies:");
+        for (Map.Entry<String, List<String>> entry : groupedBogies.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
