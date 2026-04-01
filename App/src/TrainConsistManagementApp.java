@@ -1,32 +1,44 @@
 import java.util.*;
+import java.util.stream.*;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC12 - Safety Compliance Check ");
+        System.out.println(" UC13 - Performance Comparison ");
         System.out.println("======================================\n");
 
-        Map<String, String> goodsBogies = new HashMap<>();
+        List<Integer> data = new ArrayList<>();
 
-        goodsBogies.put("BG201", "Coal");
-        goodsBogies.put("BG202", "Chemicals");
-        goodsBogies.put("BG203", "Food");
-        goodsBogies.put("BG204", "Explosives");
+        for (int i = 1; i <= 1000000; i++) {
+            data.add(i);
+        }
 
-        System.out.println("Safety Compliance Report:\n");
+        long startLoop = System.nanoTime();
 
-        for (Map.Entry<String, String> entry : goodsBogies.entrySet()) {
-
-            String bogieId = entry.getKey();
-            String cargo = entry.getValue();
-
-            if (cargo.equalsIgnoreCase("Explosives") || cargo.equalsIgnoreCase("Chemicals")) {
-                System.out.println(bogieId + " carrying " + cargo + " -> NOT SAFE");
-            } else {
-                System.out.println(bogieId + " carrying " + cargo + " -> SAFE");
+        long sumLoop = 0;
+        for (int num : data) {
+            if (num % 2 == 0) {
+                sumLoop += num;
             }
         }
+
+        long endLoop = System.nanoTime();
+
+        long startStream = System.nanoTime();
+
+        long sumStream = data.stream()
+                .filter(n -> n % 2 == 0)
+                .mapToLong(n -> n)
+                .sum();
+
+        long endStream = System.nanoTime();
+
+        System.out.println("Loop Result: " + sumLoop);
+        System.out.println("Loop Time: " + (endLoop - startLoop) + " ns");
+
+        System.out.println("\nStream Result: " + sumStream);
+        System.out.println("Stream Time: " + (endStream - startStream) + " ns");
     }
 }
