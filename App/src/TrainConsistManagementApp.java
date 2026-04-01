@@ -1,34 +1,34 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC5 - Preserve Insertion Order ");
+        System.out.println(" UC7 - Sort Bogies by Capacity ");
         System.out.println("======================================\n");
 
-        // LinkedHashSet preserves insertion order + uniqueness
-        Set<String> bogies = new LinkedHashSet<>();
+        Map<String, Integer> bogieCapacity = new HashMap<>();
 
-        // Add bogies (with duplicates)
-        bogies.add("BG101");
-        bogies.add("BG102");
-        bogies.add("BG103");
-        bogies.add("BG104");
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 60);
+        bogieCapacity.put("First Class", 40);
+        bogieCapacity.put("General", 90);
 
-        // Duplicate entries (ignored but order preserved)
-        bogies.add("BG101");
-        bogies.add("BG102");
+        List<Map.Entry<String, Integer>> bogieList =
+                new ArrayList<>(bogieCapacity.entrySet());
 
-        // Display result
-        System.out.println("Bogie IDs in insertion order:");
-        System.out.println(bogies);
+        bogieList.sort(new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> b1,
+                               Map.Entry<String, Integer> b2) {
+                return b1.getValue().compareTo(b2.getValue());
+            }
+        });
 
-        System.out.println("\nNote:");
-        System.out.println("Duplicates are ignored, but insertion order is preserved.");
-
-        System.out.println("\nUC5 completed successfully...");
+        System.out.println("Bogies sorted by capacity:");
+        for (Map.Entry<String, Integer> entry : bogieList) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
