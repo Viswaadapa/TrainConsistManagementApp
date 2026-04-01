@@ -5,18 +5,25 @@ public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC10 - Total Seat Count ");
+        System.out.println(" UC11 - Validate Train ID & Cargo Codes ");
         System.out.println("======================================\n");
 
-        List<Integer> capacities = Arrays.asList(72, 60, 40, 90);
+        String trainId = "TR123";
+        List<String> cargoCodes = Arrays.asList("CG01", "CG02", "INVALID", "CG03");
 
-        int totalSeats = capacities.stream()
-                .reduce(0, (a, b) -> a + b);
+        boolean isTrainValid = trainId.matches("TR\\d{3}");
 
-        System.out.println("Seat Capacities:");
-        System.out.println(capacities);
+        System.out.println("Train ID: " + trainId);
+        System.out.println("Is Train ID Valid? " + isTrainValid);
 
-        System.out.println("\nTotal Seats in Train:");
-        System.out.println(totalSeats);
+        System.out.println("\nCargo Code Validation:");
+
+        for (String code : cargoCodes) {
+            if (code.matches("CG\\d{2}")) {
+                System.out.println(code + " -> Valid");
+            } else {
+                System.out.println(code + " -> Invalid");
+            }
+        }
     }
 }
