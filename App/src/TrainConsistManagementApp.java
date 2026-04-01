@@ -1,34 +1,41 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC3 - Track Unique Bogie IDs ");
+        System.out.println(" UC4 - Train Consist Using LinkedList ");
         System.out.println("======================================\n");
 
-        // Create a Set to store unique bogie IDs
-        Set<String> bogies = new HashSet<>();
+        // Create LinkedList for train consist
+        LinkedList<String> train = new LinkedList<>();
 
-        // Add bogie IDs (including duplicates)
-        bogies.add("BG101");
-        bogies.add("BG102");
-        bogies.add("BG103");
-        bogies.add("BG104");
+        // Add bogies
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
 
-        // Duplicate entries (will be ignored)
-        bogies.add("BG101");
-        bogies.add("BG102");
+        System.out.println("Initial Train Consist:");
+        System.out.println(train);
 
-        // Display result
-        System.out.println("Bogie IDs After Insertion:");
-        System.out.println(bogies);
+        // Insert Pantry Car at position 2
+        train.add(2, "Pantry Car");
 
-        System.out.println("\nNote:");
-        System.out.println("Duplicates are automatically ignored by HashSet.");
+        System.out.println("\nAfter adding Pantry Car at position 2:");
+        System.out.println(train);
 
-        System.out.println("\nUC3 uniqueness validation completed...");
+        // Remove first and last bogie
+        train.removeFirst();
+        train.removeLast();
+
+        System.out.println("\nAfter removing first and last bogie:");
+        System.out.println(train);
+
+        // Final output
+        System.out.println("\nFinal Train Consist:");
+        System.out.println(train);
     }
 }
