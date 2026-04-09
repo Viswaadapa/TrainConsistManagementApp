@@ -1,40 +1,40 @@
+import java.util.*;
+
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC19 - Binary Search for Bogie ID ");
+        System.out.println(" UC20 - Safe Search with Validation ");
         System.out.println("======================================\n");
 
-        String[] bogieIds = {"BG101", "BG102", "BG103", "BG104", "BG105"};
+        List<String> bogieIds = new ArrayList<>();
 
-        String searchKey = "BG104";
+        String searchKey = "BG101";
 
-        int low = 0;
-        int high = bogieIds.length - 1;
+        try {
 
-        boolean found = false;
-
-        while (low <= high) {
-
-            int mid = (low + high) / 2;
-
-            int result = bogieIds[mid].compareTo(searchKey);
-
-            if (result == 0) {
-                found = true;
-                break;
-            } else if (result < 0) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
+            if (bogieIds.isEmpty()) {
+                throw new IllegalStateException("No bogies available for search");
             }
-        }
 
-        if (found) {
-            System.out.println("Bogie ID " + searchKey + " found in the train.");
-        } else {
-            System.out.println("Bogie ID " + searchKey + " not found.");
+            boolean found = false;
+
+            for (String id : bogieIds) {
+                if (id.equals(searchKey)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                System.out.println("Bogie ID " + searchKey + " found.");
+            } else {
+                System.out.println("Bogie ID " + searchKey + " not found.");
+            }
+
+        } catch (IllegalStateException e) {
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 }
