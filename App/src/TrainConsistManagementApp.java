@@ -1,37 +1,31 @@
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
-
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC15 - Safe Cargo Assignment ");
+        System.out.println(" UC16 - Sort Passenger Capacities ");
         System.out.println("======================================\n");
 
-        assignCargo("Rectangular", "Petroleum");
-        assignCargo("Cylindrical", "Petroleum");
-        assignCargo("Rectangular", "Food");
-    }
+        int[] capacities = {72, 60, 40, 90, 55};
 
-    public static void assignCargo(String shape, String cargo) {
+        System.out.println("Before Sorting:");
+        for (int c : capacities) {
+            System.out.print(c + " ");
+        }
 
-        try {
-
-            if (shape.equalsIgnoreCase("Rectangular") &&
-                    cargo.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException("Unsafe cargo assignment");
+        for (int i = 0; i < capacities.length - 1; i++) {
+            for (int j = 0; j < capacities.length - 1 - i; j++) {
+                if (capacities[j] > capacities[j + 1]) {
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
             }
+        }
 
-            System.out.println("Cargo " + cargo + " safely assigned to " + shape + " bogie");
-
-        } catch (CargoSafetyException e) {
-            System.out.println("ERROR: " + e.getMessage() + " for " + shape + " bogie");
-        } finally {
-            System.out.println("Operation completed for " + shape + " bogie\n");
+        System.out.println("\n\nAfter Sorting:");
+        for (int c : capacities) {
+            System.out.print(c + " ");
         }
     }
 }
